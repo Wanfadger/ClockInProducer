@@ -1,15 +1,17 @@
 package com.planetsystems.tela.api.ClockInOutProducer.controller.mobile;
 
-import com.planetsystems.tela.api.ClockInOutProducer.dto.SyncClockIn;
+import com.planetsystems.tela.api.ClockInOutProducer.dto.ClockInRequest;
 import com.planetsystems.tela.api.ClockInOutProducer.dto.SystemAppFeedBack;
 import com.planetsystems.tela.api.ClockInOutProducer.service.ClockInOutProducerService;
 import jakarta.validation.Valid;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 
 @RestController
@@ -22,13 +24,18 @@ public class ClockInOutProducerController {
 
 
 	@PostMapping("/one")
-	public ResponseEntity<SystemAppFeedBack<Boolean>> staffClockIn(@RequestBody @Valid SyncClockIn clockIn)  {
+	public ResponseEntity<SystemAppFeedBack<Boolean>> staffClockIn(@RequestBody @Valid ClockInRequest clockIn)  {
 		return clockInOutProducerService.publishClockIns(clockIn);
 	}
 
 	@PostMapping("/list")
-	public ResponseEntity<SystemAppFeedBack<Boolean>> staffClockIn(@RequestBody @Valid List<SyncClockIn> clockIns)  {
+	public ResponseEntity<SystemAppFeedBack<Boolean>> staffClockIn(@RequestBody @Valid List<ClockInRequest> clockIns)  {
 		return clockInOutProducerService.publishClockIns(clockIns);
+	}
+
+	@GetMapping("/synchronize/{telaSchoolNumber}")
+	public ResponseEntity<SystemAppFeedBack<Boolean>> synchronizeSchoolData(@PathVariable String telaSchoolNumber , @RequestParam Map<String , String> queryParam)  {
+		return clockInOutProducerService.synchronizeSchoolData(telaSchoolNumber , queryParam);
 	}
 
 }
