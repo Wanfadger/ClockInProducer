@@ -1,13 +1,16 @@
 package com.planetsystems.tela.api.ClockInOutProducer.service;
 
-import com.planetsystems.tela.api.ClockInOutProducer.dto.SyncClockIn;
+import com.planetsystems.tela.api.ClockInOutProducer.dto.ClockInRequest;
 import com.planetsystems.tela.api.ClockInOutProducer.dto.SystemAppFeedBack;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
+import java.util.Map;
 
 public interface ClockInOutProducerService {
-    ResponseEntity<SystemAppFeedBack<Boolean>> publishClockIns(SyncClockIn clockIn);
-    ResponseEntity<SystemAppFeedBack<Boolean>> publishClockIns(List<SyncClockIn> clockIns);
-    ;
+    ResponseEntity<SystemAppFeedBack<Boolean>> publishClockIns(ClockInRequest clockIn);
+    ResponseEntity<SystemAppFeedBack<Boolean>> publishClockIns(List<ClockInRequest> clockIns);
+
+    ResponseEntity<SystemAppFeedBack<Boolean>> synchronizeSchoolData(String telaSchoolNumber ,  Map<String , String> queryParam);
+
 }
