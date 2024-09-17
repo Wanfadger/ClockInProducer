@@ -38,4 +38,6 @@ public class ClockInOutProducerController {
 		return clockInOutProducerService.synchronizeSchoolData(telaSchoolNumber , queryParam);
 	}
 
+
+
 }
