@@ -1,10 +1,10 @@
 package com.planetsystems.tela.api.ClockInOutProducer.controller.mobile;
 
 import com.planetsystems.tela.api.ClockInOutProducer.dto.ClockInRequest;
+import com.planetsystems.tela.api.ClockInOutProducer.dto.RequestPayloadDTO;
 import com.planetsystems.tela.api.ClockInOutProducer.dto.SystemAppFeedBack;
 import com.planetsystems.tela.api.ClockInOutProducer.service.ClockInOutProducerService;
 import jakarta.validation.Valid;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +23,12 @@ public class ClockInOutProducerController {
 	private final ClockInOutProducerService clockInOutProducerService;
 
 
+
+	@PostMapping("/schoolData")
+	public ResponseEntity<SystemAppFeedBack<Boolean>> mobileSchoolData(@RequestBody @Valid RequestPayloadDTO requestPayloadDTO)  {
+		return clockInOutProducerService.mobileSchoolData(requestPayloadDTO);
+	}
+
 	@PostMapping("/one")
 	public ResponseEntity<SystemAppFeedBack<Boolean>> staffClockIn(@RequestBody @Valid ClockInRequest clockIn)  {
 		return clockInOutProducerService.publishClockIns(clockIn);
@@ -37,6 +43,8 @@ public class ClockInOutProducerController {
 	public ResponseEntity<SystemAppFeedBack<Boolean>> synchronizeSchoolData(@PathVariable String telaSchoolNumber , @RequestParam Map<String , String> queryParam)  {
 		return clockInOutProducerService.synchronizeSchoolData(telaSchoolNumber , queryParam);
 	}
+
+
 
 
 
