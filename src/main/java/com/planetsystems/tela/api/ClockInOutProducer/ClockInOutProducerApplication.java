@@ -15,6 +15,7 @@ import org.springframework.jms.annotation.JmsListener;
 import org.springframework.jms.config.DefaultJmsListenerContainerFactory;
 import org.springframework.jms.config.JmsListenerContainerFactory;
 import org.springframework.jms.connection.SingleConnectionFactory;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
@@ -26,6 +27,7 @@ import java.util.List;
 @SpringBootApplication
 @Slf4j
 @RequiredArgsConstructor
+@EnableAsync
 public class ClockInOutProducerApplication implements CommandLineRunner {
 	@Value("${queue.clockins}")
 	private String clockInsQueue;
