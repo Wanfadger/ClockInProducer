@@ -87,8 +87,6 @@ public class ClockInOutProducerServiceImpl implements ClockInOutProducerService{
     public ResponseEntity<SystemAppFeedBack<Boolean>> mobileSchoolData(RequestPayloadDTO requestPayloadDTO) {
         Optional<RequestType> requestTypeOptional = RequestType.fromString(requestPayloadDTO.getRequestType());
 
-        log.info("ddfdfdg  \n {} \n " , requestPayloadDTO);
-
         if (requestTypeOptional.isPresent()) {
             RequestType requestType = requestTypeOptional.get();
             switch (requestType){
