@@ -12,7 +12,9 @@ import java.io.Serializable;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ClockInRequest implements Serializable {
+public class ClockInRequestDTO implements Serializable {
+	private String id;
+
 	@NotEmpty(message = "telaSchoolNumber Id is required")
 	@NotBlank(message = "telaSchoolNumber Id is required")
 	private String staffId;
