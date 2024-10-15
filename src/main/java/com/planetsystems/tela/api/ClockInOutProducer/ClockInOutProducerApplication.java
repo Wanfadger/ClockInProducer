@@ -1,7 +1,6 @@
 package com.planetsystems.tela.api.ClockInOutProducer;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.planetsystems.tela.api.ClockInOutProducer.dto.ClockInRequest;
+import com.planetsystems.tela.api.ClockInOutProducer.dto.ClockInRequestDTO;
 import com.planetsystems.tela.api.ClockInOutProducer.service.ClockInOutProducerService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -9,20 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.jms.DefaultJmsListenerContainerFactoryConfigurer;
-import org.springframework.context.annotation.Bean;
-import org.springframework.jms.annotation.JmsListener;
-import org.springframework.jms.config.DefaultJmsListenerContainerFactory;
-import org.springframework.jms.config.JmsListenerContainerFactory;
-import org.springframework.jms.connection.SingleConnectionFactory;
 import org.springframework.scheduling.annotation.EnableAsync;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.util.List;
 
 @SpringBootApplication
 @Slf4j
@@ -32,8 +18,6 @@ public class ClockInOutProducerApplication implements CommandLineRunner {
 	@Value("${queue.clockins}")
 	private String clockInsQueue;
 
-	@Value("${queue.clockin}")
-	private  String clockInQueue;
 	final ClockInOutProducerService clockInOutProducerService;
 
 	public static void main(String[] args) {
@@ -45,7 +29,7 @@ public class ClockInOutProducerApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 
 //
-		ClockInRequest request = ClockInRequest.builder()
+		ClockInRequestDTO request = ClockInRequestDTO.builder()
 				.academicTermId("8a8089b191dfdd700191dfe76bc80018")
 				.clockInDateTime("12/09/2024 16:28:42")
 				.clockInType("Pin")
@@ -57,7 +41,7 @@ public class ClockInOutProducerApplication implements CommandLineRunner {
 				.build();
 
 
-		ClockInRequest request2 = ClockInRequest.builder()
+		ClockInRequestDTO request2 = ClockInRequestDTO.builder()
 				.academicTermId("8a8089b191dfdd700191dfe76bc80018")
 				.clockInDateTime("12/09/2024 16:28:42")
 				.clockInType("Pin")
