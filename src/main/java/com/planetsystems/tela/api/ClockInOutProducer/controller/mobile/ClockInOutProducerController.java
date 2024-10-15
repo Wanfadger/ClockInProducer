@@ -1,6 +1,7 @@
 package com.planetsystems.tela.api.ClockInOutProducer.controller.mobile;
 
-import com.planetsystems.tela.api.ClockInOutProducer.dto.ClockInRequest;
+import com.planetsystems.tela.api.ClockInOutProducer.dto.ClockInRequestDTO;
+import com.planetsystems.tela.api.ClockInOutProducer.dto.ClockOutRequestDTO;
 import com.planetsystems.tela.api.ClockInOutProducer.dto.RequestPayloadDTO;
 import com.planetsystems.tela.api.ClockInOutProducer.dto.SystemAppFeedBack;
 import com.planetsystems.tela.api.ClockInOutProducer.service.ClockInOutProducerService;
@@ -29,14 +30,20 @@ public class ClockInOutProducerController {
 		return clockInOutProducerService.mobileSchoolData(requestPayloadDTO);
 	}
 
-	@PostMapping("/one")
-	public ResponseEntity<SystemAppFeedBack<Boolean>> staffClockIn(@RequestBody @Valid ClockInRequest clockIn)  {
-		return clockInOutProducerService.publishClockIns(clockIn);
-	}
+//	@PostMapping("/one")
+//	public ResponseEntity<SystemAppFeedBack<Boolean>> staffClockIn(@RequestBody @Valid ClockInRequestDTO clockIn)  {
+//		return clockInOutProducerService.publishClockIns(clockIn);
+//	}
 
 	@PostMapping("/list")
-	public ResponseEntity<SystemAppFeedBack<Boolean>> staffClockIn(@RequestBody @Valid List<ClockInRequest> clockIns)  {
+	public ResponseEntity<SystemAppFeedBack<Boolean>> staffClockIn(@RequestBody @Valid List<ClockInRequestDTO> clockIns)  {
 		return clockInOutProducerService.publishClockIns(clockIns);
+	}
+
+	@PostMapping("/outs")
+	public ResponseEntity<SystemAppFeedBack<Boolean>> staffClockOuts(@RequestBody @Valid List<ClockOutRequestDTO> clockOuts)  {
+		System.out.println("staffClockOuts "+clockOuts);
+		return clockInOutProducerService.publishClockOuts(clockOuts);
 	}
 
 	@GetMapping("/synchronize/{telaSchoolNumber}")
