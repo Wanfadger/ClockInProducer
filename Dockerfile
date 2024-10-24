@@ -30,7 +30,7 @@ COPY src ./src
 # Build the application
 RUN mvn clean install
 
-EXPOSE 8091
+#EXPOSE 8091
 
 # Use a lighter image for the final product
 #FROM openjdk:11-jre-slim
