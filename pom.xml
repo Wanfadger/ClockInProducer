@@ -65,6 +65,8 @@
 	</dependencies>
 
 	<build>
+		 <finalName>ClockInOutProducer</finalName>
+		
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
