@@ -8,7 +8,8 @@ WORKDIR /app
 COPY . .
 
 # Compile the application
-RUN ./mvnw clean install -e
+#RUN ./mvnw clean install -e
+RUN ./mvnw clean install -X
 
 # Expose the port the app runs on (adjust as needed)
 EXPOSE 1405
