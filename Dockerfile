@@ -9,7 +9,7 @@ WORKDIR /app
 COPY . .
 
 # Compile the application
-RUN ./mvnw clean install
+RUN ./mvn clean install
 
 # Expose the port the app runs on (adjust as needed)
 EXPOSE 8091
