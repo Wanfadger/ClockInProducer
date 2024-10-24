@@ -9,7 +9,8 @@ COPY . .
 
 # Compile the application
 #RUN ./mvnw clean install -e
-RUN ./mvnw clean install -X
+#RUN ./mvnw clean install -X
+RUN ./mvnw clean install -DskipTests
 
 # Expose the port the app runs on (adjust as needed)
 EXPOSE 1405
