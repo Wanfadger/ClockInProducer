@@ -8,7 +8,6 @@ WORKDIR /app
 COPY . .
 
 # Compile the application
-#RUN ./mvnw clean install 
 #RUN ./mvnw clean install -X
 RUN ./mvnw clean install -DskipTests
 
