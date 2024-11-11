@@ -1,17 +1,24 @@
-# Use the official OpenJDK 21 image as the base image
-FROM openjdk:21-jdk
+FROM maven:3.9.8-eclipse-temurin-21 AS build
 
-# Set the working directory inside the container
 WORKDIR /app
 
-# Copy the local project files to the container
-COPY . .
+# Copy only the pom.xml first to leverage Docker layer caching
+COPY pom.xml .
 
-# Compile the application
-RUN ./mvnw clean install -e
+# Copy the rest of the source code
+COPY src ./src
 
-# Expose the port the app runs on (adjust as needed)
-EXPOSE 1405
+# Build the application
+RUN mvn clean install -DskipTests=true
 
-# Run the application (adjust the JAR name as needed)
-CMD ["java", "-jar", "target/ClockInOutProducer.jar"]
+
+FROM openjdk:21
+
+WORKDIR /app
+
+EXPOSE 8091
+
+# Copy the built artifact from the previous stage
+COPY --from=build /app/target/ClockInOutProducer.jar ClockInOutProducer.jar
+
+CMD ["java", "-jar", "ClockInOutProducer.jar"]
