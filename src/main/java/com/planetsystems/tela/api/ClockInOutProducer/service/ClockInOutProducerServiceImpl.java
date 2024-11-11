@@ -69,6 +69,8 @@ public class ClockInOutProducerServiceImpl implements ClockInOutProducerService{
 
     private final ObjectMapper objectMapper;
 
+    final RestClient restClient;
+
 
 
 
