@@ -84,6 +84,29 @@ public class ClockInOutProducerServiceImpl implements ClockInOutProducerService{
     }
 
     @Override
+public ResponseEntity<SystemAppFeedBack<Boolean>> synchronizeRestSchoolData(String telaSchoolNumber, Map<String, String> queryParam) {
+    try {
+        
+        queryParam.put("telaSchoolNumber" , telaSchoolNumber);
+        SynchronizeRestSchoolDataDTO synchronizeRestSchoolDataDTO = new SynchronizeRestSchoolDataDTO(telaSchoolNumber, queryParam.get("date"));
+        Boolean body = restClient.post()
+                .uri( "/synchronizeRestSchoolData")
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(synchronizeRestSchoolDataDTO)
+                .retrieve()
+                .body(Boolean.class);
+        log.info("request body {} " , synchronizeRestSchoolDataDTO);
+        log.info("synchronizeRestSchoolData Consumer RESPONSE {} ", body);
+        if (body.booleanValue()) {
+            return ResponseEntity.ok(SystemAppFeedBack.<Boolean>builder().data(true).status(true).message("success").build());
+        }
+    }catch (Exception e){
+        e.printStackTrace();
+    }
+    return ResponseEntity.ok(SystemAppFeedBack.<Boolean>builder().data(false).status(false).message("success").build());
+}
+
+    @Override
     public ResponseEntity<SystemAppFeedBack<Boolean>> mobileSchoolData(RequestPayloadDTO requestPayloadDTO) {
         Optional<RequestType> requestTypeOptional = RequestType.fromString(requestPayloadDTO.getRequestType());
 
