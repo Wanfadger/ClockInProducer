@@ -46,10 +46,16 @@ public class ClockInOutProducerController {
 		return clockInOutProducerService.publishClockOuts(clockOuts);
 	}
 
-	@GetMapping("/synchronize/{telaSchoolNumber}")
+	/*@GetMapping("/synchronize/{telaSchoolNumber}")
 	public ResponseEntity<SystemAppFeedBack<Boolean>> synchronizeSchoolData(@PathVariable String telaSchoolNumber , @RequestParam Map<String , String> queryParam)  {
 		return clockInOutProducerService.synchronizeSchoolData(telaSchoolNumber , queryParam);
-	}
+	}*/
+
+	  @GetMapping("/synchronize/{telaSchoolNumber}")
+   public ResponseEntity<SystemAppFeedBack<Boolean>> synchronizeSchoolData(@PathVariable String telaSchoolNumber , @RequestParam Map<String , String> queryParam)  {
+//    return clockInOutProducerService.synchronizeSchoolData(telaSchoolNumber , queryParam);
+      return clockInOutProducerService.synchronizeRestSchoolData(telaSchoolNumber , queryParam);
+   }
 
 
 
