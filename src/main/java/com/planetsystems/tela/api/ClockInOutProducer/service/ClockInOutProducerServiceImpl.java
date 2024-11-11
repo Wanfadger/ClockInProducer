@@ -97,7 +97,7 @@ public class ClockInOutProducerServiceImpl implements ClockInOutProducerService{
                             .schoolTelaNumber(requestPayloadDTO.getSchoolTelaNumber())
                             .data(requestPayloadDTO.getData())
                             .build();
-                    //publishSchoolData(learnerHeadCountsQueue, publishPayloadDTO);
+                    publishSchoolData(learnerHeadCountsQueue, publishPayloadDTO);
                 }
                     case LEARNER_ATTENDANCES -> {
                         log.info("PUBLISHING LEARNER_ATTENDANCES {} " , requestPayloadDTO.getRequestType());
@@ -106,7 +106,7 @@ public class ClockInOutProducerServiceImpl implements ClockInOutProducerService{
                                 .schoolTelaNumber(requestPayloadDTO.getSchoolTelaNumber())
                                 .data(requestPayloadDTO.getData())
                                 .build();
-                        //publishSchoolData(classAttendancesQueue ,publishPayloadDTO);
+                        publishSchoolData(classAttendancesQueue ,publishPayloadDTO);
                 }
 
                 case CLASSES -> {
@@ -135,7 +135,7 @@ public class ClockInOutProducerServiceImpl implements ClockInOutProducerService{
                             .schoolTelaNumber(requestPayloadDTO.getSchoolTelaNumber())
                             .data(requestPayloadDTO.getData())
                             .build();
-                    //publishSchoolData(staffDailyTimeAttendancesQueue ,publishPayloadDTO);
+                    publishSchoolData(staffDailyTimeAttendancesQueue ,publishPayloadDTO);
                     log.info("PUBLISHING STAFF_DAILY_TIME_ATTENDANCES {} " , requestPayloadDTO.getRequestType());
                 }
 
@@ -156,7 +156,7 @@ public class ClockInOutProducerServiceImpl implements ClockInOutProducerService{
                             .data(requestPayloadDTO.getData())
                             .build();
 
-                    //publishSchoolData(staffDailyTimetablesQueue ,publishPayloadDTO);
+                    publishSchoolData(staffDailyTimetablesQueue ,publishPayloadDTO);
                     log.info("PUBLISHING STAFF_DAILY_TIMETABLES {} " , requestPayloadDTO.getRequestType());
                 }
 
@@ -166,7 +166,7 @@ public class ClockInOutProducerServiceImpl implements ClockInOutProducerService{
                             .schoolTelaNumber(requestPayloadDTO.getSchoolTelaNumber())
                             .data(requestPayloadDTO.getData())
                             .build();
-                    //publishSchoolData(staffDailyTaskSupervisionsQueue ,publishPayloadDTO);
+                    publishSchoolData(staffDailyTaskSupervisionsQueue ,publishPayloadDTO);
                     log.info("PUBLISHING STAFF_DAILY_TASK_SUPERVISIONS {} " , requestPayloadDTO.getRequestType());
                 }
 
@@ -217,7 +217,7 @@ public class ClockInOutProducerServiceImpl implements ClockInOutProducerService{
     @Transactional
     public ResponseEntity<SystemAppFeedBack<Boolean>> publishClockIns(List<ClockInRequestDTO> clockIns) {
         try{
-            //publish(clockInsQueue , objectMapper.writeValueAsString(clockIns));
+            publish(clockInsQueue , objectMapper.writeValueAsString(clockIns));
             log.info("publishClockIns DATA {}" , clockIns);
             return ResponseEntity.ok(SystemAppFeedBack.<Boolean>builder().data(true).status(true).message("success").build());
         }catch (Exception e){
@@ -231,7 +231,7 @@ public class ClockInOutProducerServiceImpl implements ClockInOutProducerService{
     public ResponseEntity<SystemAppFeedBack<Boolean>> publishClockOuts(List<ClockOutRequestDTO> clockOuts) {
         log.info("CLOCKOURS DATA {}" , clockOuts);
         try{
-            //publish(clockOutsQueue , objectMapper.writeValueAsString(clockOuts));
+            publish(clockOutsQueue , objectMapper.writeValueAsString(clockOuts));
             log.info("publishClockOuts DATA {}" , clockOuts);
             return ResponseEntity.ok(SystemAppFeedBack.<Boolean>builder().data(true).status(true).message("success").build());
         }catch (Exception e){
