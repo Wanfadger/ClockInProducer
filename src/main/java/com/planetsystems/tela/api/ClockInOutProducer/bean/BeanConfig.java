@@ -11,10 +11,19 @@ import org.springframework.jms.connection.SingleConnectionFactory;
 @Configuration
 public class BeanConfig {
 
+
+	@Value("${consumerBaseUrl}")
+String consumerBaseUrl;
+	
 	@Bean
 	public ObjectMapper objectMapper(){
 		return new ObjectMapper();
 	}
+
+	@Bean
+public RestClient restClient(){
+   return RestClient.create(consumerBaseUrl);
+}
 
 
 }
