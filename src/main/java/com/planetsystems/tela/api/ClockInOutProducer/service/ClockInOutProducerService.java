@@ -18,4 +18,6 @@ public interface ClockInOutProducerService {
     ResponseEntity<SystemAppFeedBack<Boolean>> mobileSchoolData(RequestPayloadDTO requestPayloadDTO);
 
     ResponseEntity<SystemAppFeedBack<Boolean>> publishClockOuts(List<ClockOutRequestDTO> clockOuts);
+
+    ResponseEntity<SystemAppFeedBack<Boolean>> synchronizeRestSchoolData(String telaSchoolNumber ,  Map<String , String> queryParam);
 }
