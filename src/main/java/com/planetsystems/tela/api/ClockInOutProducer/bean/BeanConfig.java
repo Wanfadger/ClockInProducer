@@ -7,6 +7,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.jms.config.DefaultJmsListenerContainerFactory;
 import org.springframework.jms.config.JmsListenerContainerFactory;
 import org.springframework.jms.connection.SingleConnectionFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.client.RestClient;
 
 @Configuration
 public class BeanConfig {
