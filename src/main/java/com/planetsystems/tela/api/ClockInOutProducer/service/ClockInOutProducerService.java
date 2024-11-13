@@ -13,6 +13,7 @@ public interface ClockInOutProducerService {
 //    ResponseEntity<SystemAppFeedBack<Boolean>> publishClockIns(ClockInRequestDTO clockIn);
     ResponseEntity<SystemAppFeedBack<Boolean>> publishClockIns(List<ClockInRequestDTO> clockIns);
 
+    @Deprecated(forRemoval = true)
     ResponseEntity<SystemAppFeedBack<Boolean>> synchronizeSchoolData(String telaSchoolNumber ,  Map<String , String> queryParam);
     ResponseEntity<SystemAppFeedBack<Boolean>> synchronizeRestSchoolData(String telaSchoolNumber ,  Map<String , String> queryParam);
 
@@ -20,5 +21,4 @@ public interface ClockInOutProducerService {
 
     ResponseEntity<SystemAppFeedBack<Boolean>> publishClockOuts(List<ClockOutRequestDTO> clockOuts);
 
-    ResponseEntity<SystemAppFeedBack<Boolean>> synchronizeRestSchoolData(String telaSchoolNumber ,  Map<String , String> queryParam);
 }

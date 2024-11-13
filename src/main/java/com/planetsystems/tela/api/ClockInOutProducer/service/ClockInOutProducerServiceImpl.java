@@ -2,7 +2,6 @@ package com.planetsystems.tela.api.ClockInOutProducer.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.planetsystems.tela.api.ClockInOutProducer.dto.*;
-import jakarta.jms.Message;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.NonNull;
@@ -12,7 +11,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.jms.annotation.JmsListener;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
