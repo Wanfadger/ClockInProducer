@@ -2,6 +2,7 @@ package com.planetsystems.tela.api.ClockInOutProducer.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.planetsystems.tela.api.ClockInOutProducer.dto.*;
+import jakarta.jms.Message;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.NonNull;
@@ -9,11 +10,14 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.jms.annotation.JmsListener;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.RestClient;
 
 import java.util.List;
 import java.util.Map;
@@ -67,6 +71,9 @@ public class ClockInOutProducerServiceImpl implements ClockInOutProducerService{
 
     private final ObjectMapper objectMapper;
 
+    final RestClient restClient;
+
+
 
 
 
@@ -81,6 +88,29 @@ public class ClockInOutProducerServiceImpl implements ClockInOutProducerService{
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(SystemAppFeedBack.<Boolean>builder().data(false).status(false).message(e.getMessage()).build());
         }
+    }
+
+    @Override
+    public ResponseEntity<SystemAppFeedBack<Boolean>> synchronizeRestSchoolData(String telaSchoolNumber, Map<String, String> queryParam) {
+        try {
+
+            queryParam.put("telaSchoolNumber" , telaSchoolNumber);
+            SynchronizeRestSchoolDataDTO synchronizeRestSchoolDataDTO = new SynchronizeRestSchoolDataDTO(telaSchoolNumber, queryParam.get("date"));
+            Boolean body = restClient.post()
+                    .uri( "/SynchroniseTelaData")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .body(synchronizeRestSchoolDataDTO)
+                    .retrieve()
+                    .body(Boolean.class);
+            log.info("request body {} " , synchronizeRestSchoolDataDTO);
+            log.info("synchronizeRestSchoolData Consumer RESPONSE {} ", body);
+            if (body.booleanValue()) {
+                return ResponseEntity.ok(SystemAppFeedBack.<Boolean>builder().data(true).status(true).message("success").build());
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return ResponseEntity.ok(SystemAppFeedBack.<Boolean>builder().data(false).status(false).message("success").build());
     }
 
     @Override
@@ -245,5 +275,8 @@ public class ClockInOutProducerServiceImpl implements ClockInOutProducerService{
         jmsTemplate.setPubSubDomain(false);
         jmsTemplate.convertAndSend(queueName , dataStr);
     }
+
+
+
 
 }
