@@ -2,12 +2,14 @@ package com.planetsystems.tela.api.ClockInOutProducer;
 
 import com.planetsystems.tela.api.ClockInOutProducer.dto.ClockInRequestDTO;
 import com.planetsystems.tela.api.ClockInOutProducer.service.ClockInOutProducerService;
+import jakarta.jms.Message;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.jms.annotation.JmsListener;
 import org.springframework.scheduling.annotation.EnableAsync;
 
 @SpringBootApplication
@@ -15,10 +17,6 @@ import org.springframework.scheduling.annotation.EnableAsync;
 @RequiredArgsConstructor
 @EnableAsync
 public class ClockInOutProducerApplication implements CommandLineRunner {
-	@Value("${queue.clockins}")
-	private String clockInsQueue;
-
-	final ClockInOutProducerService clockInOutProducerService;
 
 	public static void main(String[] args) {
 		SpringApplication.run(ClockInOutProducerApplication.class, args);
@@ -59,7 +57,5 @@ public class ClockInOutProducerApplication implements CommandLineRunner {
 //		});
 
 	}
-
-
 
 }
