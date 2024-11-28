@@ -9,6 +9,7 @@ import java.io.Serializable;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 public class SystemAppFeedBack <T> implements Serializable {
     /**
 	 * 
