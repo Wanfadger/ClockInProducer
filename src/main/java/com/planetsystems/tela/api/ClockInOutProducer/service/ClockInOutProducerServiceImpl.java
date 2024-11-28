@@ -8,6 +8,7 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -94,17 +95,19 @@ public class ClockInOutProducerServiceImpl implements ClockInOutProducerService{
 
             queryParam.put("telaSchoolNumber" , telaSchoolNumber);
             SynchronizeRestSchoolDataDTO synchronizeRestSchoolDataDTO = new SynchronizeRestSchoolDataDTO(telaSchoolNumber, queryParam.get("date"));
-            Boolean body = restClient.post()
-                    .uri( "/SynchroniseTelaData")
+            SystemAppFeedBack<Boolean> body = restClient.post()
+                    .uri("/SynchroniseTelaData")
                     .contentType(MediaType.APPLICATION_JSON)
                     .body(synchronizeRestSchoolDataDTO)
                     .retrieve()
-                    .body(Boolean.class);
+                    .body(new ParameterizedTypeReference<>() {
+                    });
             log.info("request body {} " , synchronizeRestSchoolDataDTO);
             log.info("synchronizeRestSchoolData Consumer RESPONSE {} ", body);
-            if (body.booleanValue()) {
-                return ResponseEntity.ok(SystemAppFeedBack.<Boolean>builder().data(true).status(true).message("success").build());
-            }
+            return ResponseEntity.ok(body);
+//            if (response) {
+//                return ResponseEntity.ok(SystemAppFeedBack.<Boolean>builder().data(true).status(true).message("success").build());
+//            }
         }catch (Exception e){
             e.printStackTrace();
         }
